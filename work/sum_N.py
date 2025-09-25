@@ -35,5 +35,5 @@ def test(l: list[Callable[[int], float]], input: int):
 
 
 # test([sum_N, sum_N_gauss])
-for result in test([sum_N, sum_N_gauss, pi_approx], 10000000):
+for result in test([sum_N, sum_N_gauss, pi_approx], 2000000):
     print(result)
