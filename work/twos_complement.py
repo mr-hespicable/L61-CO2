@@ -35,7 +35,6 @@ def convert_to_signed_binary(val: int, num_bits: int = 8) -> str:
 
 # Test your code here
 print(convert_to_signed_binary(-128))
-print(convert_to_signed_binary(-129))
 print(convert_to_signed_binary(127, 8))
 print(convert_to_signed_binary(-30, 6))
 print(convert_to_signed_binary(30, 6))
