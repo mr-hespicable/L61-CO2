@@ -103,3 +103,7 @@ my_pet['name'] = 'Aggie'
 my_pet['species'] = 'cat'
 my_pet['owner'] = 'Mr Clark'
 ```
+
+== Subroutines
+A *procedure* is a subroutine that does not return a value.
+A *function* is a subroutine that returns a one or more values.
