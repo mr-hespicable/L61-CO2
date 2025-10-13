@@ -7,7 +7,7 @@ def zeckendorf_representation(n: int) -> list[int]:
         data.append(data[-2] + data[-1])
 
     res: list[int] = []
-    
+
     for i in reversed(range(len(data))):
         d = data[i]
         while n >= d and d != 0:
@@ -17,7 +17,4 @@ def zeckendorf_representation(n: int) -> list[int]:
     return res
 
 
-inp = 8293492 #int(input())
-result = zeckendorf_representation(inp)
-
-print(f"{result} : {sum(result)} == {inp}")
+x = zeckendorf_representation(91239)
