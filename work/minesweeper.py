@@ -2,11 +2,13 @@ from pprint import pprint
 from typing import Optional
 import random
 
-class Board():
+
+class Board:
     def __init__(self, rows: int = 9, cols: int = 9):
         self.rows: int = rows
-        self.cols: int = cols 
-        self.board: list[list[int | str]] = [[0] * cols for _ in range(rows)]
+        self.cols: int = cols
+        self.true_board: list[list[int | str]] = [[0] * cols for _ in range(rows)]
+        self.user_board: list[list[int | str]] = [["-"] * cols for _ in range(rows)]
         self.hovering: list[int] = [0, 0]
         self.command: str = ""
 
@@ -14,24 +16,24 @@ class Board():
         num_mines = 10
         # populate board
         has_dupes = True
-        mines_coordinates = [(random.randint(0, 8), random.randint(0, 8)) for _ in range(num_mines)]
+        mines_coordinates = [
+            (random.randint(0, 8), random.randint(0, 8)) for _ in range(num_mines)
+        ]
 
         # remove dupes
         while has_dupes:
             for c in mines_coordinates:
                 if mines_coordinates.count(c) > 1:
-                    mines_coordinates = [(random.randint(0, 8), random.randint(0, 8)) for _ in range(num_mines)]
+                    mines_coordinates = [
+                        (random.randint(0, 8), random.randint(0, 8))
+                        for _ in range(num_mines)
+                    ]
                 else:
                     has_dupes = False
-            
 
         # assign mines to board
         for coord in mines_coordinates:
-            self.board[coord[0]][coord[1]] = "-"
-
-
-        print(mines_coordinates)
-        self.display()
+            self.true_board[coord[0]][coord[1]] = "*"
 
         # create numbers on cells around mines
         surrounding_coordinates: dict[str, int] = {}
@@ -41,28 +43,82 @@ class Board():
 
             for j in range(-1, 2):
                 for i in range(-1, 2):
-                    stringified_coordinate = f"{y+j},{x+i}"
-                    if (y+i, x+j) not in mines_coordinates: # so a number is not placed on the mine
-                        if list(surrounding_coordinates.keys()).count(stringified_coordinate) != 0:
-                            surrounding_coordinates[stringified_coordinate] = surrounding_coordinates[stringified_coordinate] + 1
+                    stringified_coordinate = f"{y + i},{x + j}"
+                    if (
+                        y + i,
+                        x + j,
+                    ) not in mines_coordinates:  # so a number is not placed on the mine
+                        if (
+                            list(surrounding_coordinates.keys()).count(
+                                stringified_coordinate
+                            )
+                            != 0
+                        ):
+                            surrounding_coordinates[stringified_coordinate] += 1
                         else:
                             surrounding_coordinates[stringified_coordinate] = 1
-
-        pprint(surrounding_coordinates)
-
 
         # replace nums in board
         for c in surrounding_coordinates:
             y, x = map(lambda n: int(n), c.split(","))
             if 0 <= y < self.rows and 0 <= x < self.cols:
-                self.board[y][x] = surrounding_coordinates[c]
+                self.true_board[y][x] = surrounding_coordinates[c]
 
-    def click(self, coordinates: list[int]):
-        pass
+    def click(self, coord: list[int]):
+        y, x = coord
+        val = self.true_board[y][x]
+
+        # eval number
+        match val:
+            case 0:
+                self.true_board[y][x] = "0"
+                self.__sweep(coord)
+            case "*":
+                print("kaboom you lose")
+            case _:
+                print(f"not a zero here, just a {val}")
+                self.__reveal(coord) # reveal num and continue
+
+    def __reveal(self, coord: list[int]):
+        y, x = coord
+        print(coord, "reveal")
+        self.user_board[y][x] = self.true_board[y][x]
+
+    def __sweep(self, swept_coord: list[int]):
+        print(f"{swept_coord} is 0 sweeping")
+        y, x = swept_coord
+        ry, rx = 0, 0
+
+        checked_coordinates: list[list[int]] = []
+        def propogate(coordinate: list[int]):
+            y, x = coordinate
+            val = self.true_board[y][x]
+            if val != 0:
+                for i in range(-1, 2):
+                    for j in range(-1, 2):
+                        ry, rx = y + i, x + j
+                        if (
+                            coordinate not in checked_coordinates
+                            and 0 <= ry < self.rows
+                            and 0 <= rx < self.cols
+                            and self.true_board[ry][rx] == 0
+                        ):
+                            self.click([ry, rx])
+                            propogate([ry, rx])
+                        elif 0 <= ry < self.rows and 0 <= rx < self.cols:
+                            self.click([ry, rx])
+
+        propogate(swept_coord)
+
 
     def display(self) -> None:
-        for row in self.board:
-            print(*row)
+        for row in self.true_board:
+            print(*row, sep="  ")
+            print()
+        print()
+        for row in self.user_board:
+            print(*row, sep="  ")
+            print()
 
     def choose(self, action: int, coordinates: list[int]):
         """
@@ -79,7 +135,7 @@ class Board():
             case _:
                 print("invalid response: {action}")
         pass
-    
+
     def play(self, quit: bool = False):
         print("welcome to minesweeper meow")
         while not quit:
@@ -89,8 +145,9 @@ class Board():
             c = input("\nhere is your board. what would you like to do?: ")
 
 
-
 b = Board()
 b.create()
 b.display()
-
+b.click([1, 2])
+b.click([2, 3])
+b.display()
