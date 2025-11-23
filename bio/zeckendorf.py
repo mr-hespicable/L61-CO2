@@ -18,3 +18,4 @@ def zeckendorf_representation(n: int) -> list[int]:
 
 
 x = zeckendorf_representation(91239)
+print(x)

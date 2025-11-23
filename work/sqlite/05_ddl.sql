@@ -1,0 +1,13 @@
+INSERT INTO Orders VALUES(1, 6, 2, "1958-10-04");
+
+INSERT INTO Shippers VALUES(4, "John Pork", "123456789");
+INSERT INTO Shippers VALUES(5, "John Dork", "123456780");
+
+INSERT INTO Shipments VALUES(1, 4, "1958-10-05", "1959-10-11");
+INSERT INTO Shipments VALUES(2, 5, "1958-10-05", "2001-10-11");
+
+INSERT INTO OrderDetails VALUES(1, 1, 41, 1, 1);
+INSERT INTO OrderDetails VALUES(2, 1, 42, 1, 8);
+INSERT INTO OrderDetails VALUES(3, 1, 40, 2, 5);
+
+SELECT * FROM OrderDetails

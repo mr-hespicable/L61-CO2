@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="Northwind.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1761"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="Categories" custom_title="0" dock_id="10" table="4,10:mainCategories"/><dock_state state="000000ff00000000fd00000001000000020000054b000003c8fc0100000004fb000000160064006f0063006b00420072006f00770073006500310100000000000006b40000000000000000fb000000160064006f0063006b00420072006f00770073006500380100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500390100000000ffffffff0000000000000000fb000000180064006f0063006b00420072006f0077007300650031003001000000000000054b0000015c00ffffff0000054b0000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="Categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="82"/><column index="2" value="105"/><column index="3" value="294"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">-- List the number of customers in each country ordered alphabetically by country
+select Country, count(*) from Customers as cm group by cm.Country order by Country; 
+
+-- For each order list the orderid, orderdate, customername and total cost
+select distinct
+    o.OrderID, 
+    o.OrderDate, 
+    c.CustomerName, 
+    (od.Quantity * p.Price) as total_cost
+from Orders as o
+join Customers as c
+    on o.CustomerID = c.CustomerID
+join OrderDetails as od
+    on o.OrderID = od.OrderID
+join Products as p
+    on od.ProductID = p.ProductID;
+
+
+-- Amend the query above so that only orders with a total cost &gt; 400 are shown
+select
+    o.OrderID, 
+    o.OrderDate, 
+    c.CustomerName,
+	sum(od.Quantity * p.Price) as total_cost
+from Orders as o
+join Customers as c
+    on o.CustomerID = c.CustomerID
+join OrderDetails as od
+    on o.OrderID = od.OrderID
+join Products as p
+    on od.ProductID = p.ProductID
+group by c.CustomerName
+having total_cost &gt; 400;
+
+
+-- Show how many orders there are on each order date
+select
+    o.OrderDate,
+    count(*)
+from Orders as o
+group by o.OrderDate;
+
+-- For each customer show the minimum, maximum and average price of products they have ordered
+select
+    c.CustomerName,
+    min(od.Quantity * p.Price) as mn,
+    max(od.Quantity * p.Price) as mx,
+    avg(od.Quantity * p.Price) as vg
+from Customers as c
+join Orders as o
+    on o.CustomerID = c.CustomerID
+join OrderDetails as od
+    on od.OrderID = o.OrderID
+join Products as p
+    on p.ProductID = od.ProductID
+group by c.CustomerName;
+
+-- How many orders has each employee processed. Order by their name.
+select 
+    e.FirstName || e.LastName,
+    count(o.OrderID)
+from Employees as e
+left join Orders as o
+    on o.EmployeeID = e.EmployeeID
+group by e.FirstName;
+
+-- Find the total Quantity of items sold by Category
+select
+    CategoryName,
+	Quantity
+from Categories as c
+join Products as p
+    on c.CategoryID = p.CategoryID
+join OrderDetails as od
+    on p.ProductID = od.ProductID
+group by c.CategoryName;
+
+-- Find suppliers who sell more than three products
+select 
+	SupplierName,
+	count(ProductName) as numProductsSold
+from Suppliers as s
+join Products as p
+    on s.SupplierID = p.SupplierID
+group by SupplierName
+having numProductsSold &gt; 3;
+ 
+-- List all customers and the total number of orders they have placed (including those with zero orders)
+
+select 
+	c.CustomerName,
+	count(o.CustomerID) as numOrders
+from Customers as c
+left join Orders as o
+	on c.CustomerID = o.CustomerID
+group by o.CustomerID	</sql><current_tab id="0"/></tab_sql></sqlb_project>

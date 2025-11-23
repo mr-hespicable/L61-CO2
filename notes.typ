@@ -107,3 +107,12 @@ my_pet['owner'] = 'Mr Clark'
 == Subroutines
 A *procedure* is a subroutine that does not return a value.
 A *function* is a subroutine that returns a one or more values.
+
+= Object-Oriented Programming
+
+== Inheritance
+A subclass *inherits* the attributes and methods of its superclass by default.
+e.g. `class Foo extends Bar` or in python, for `class Foo(Bar)`, Foo inherits Bar.
+
+== Attributes and Methods
+Unless it says otherwise, attributes and methods of a class are private by default.
