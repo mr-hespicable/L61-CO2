@@ -17,5 +17,14 @@ def zeckendorf_representation(n: int) -> list[int]:
     return res
 
 
-x = zeckendorf_representation(91239)
-print(x)
+print(zeckendorf_representation(100))
+print(zeckendorf_representation(1))
+print(zeckendorf_representation(832040))
+print(zeckendorf_representation(4))
+print(zeckendorf_representation(623))
+print(zeckendorf_representation(12))
+print(zeckendorf_representation(834629))
+print(zeckendorf_representation(33))
+print(zeckendorf_representation(2023))
+print(zeckendorf_representation(5000))
+print(zeckendorf_representation(514228))
