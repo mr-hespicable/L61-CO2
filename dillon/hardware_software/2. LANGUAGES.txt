@@ -1,0 +1,103 @@
+MACHINE CODE
+
+Processors execute machine code.
+Machine code consists of instructions in binary stored in a memory location.
+
+The first part of the binary number is the opcode and the second part is the operand.
+
+OPCODE
+- represents the operation the processor should carry out (e.g. load, add, store)
+
+OPERANDS
+- represents data that the operation should be carried out on. 
+It may reference a register in the CPU, a memory location in RAM, or a literal data
+value (e.g. 0b1010 = ten)
+
+Machine code is the lowest level of code that can be programmed externally.
+
+
+ASSEMBLY LANGUAGE
+
+This is a slight abstraction from machine code.
+However, there is still a one-to-one mapping with the instructions being executed by
+the processor. 
+
+Both machine code & assembly language are considered to be low level languages.
+
+The opcode is written as a mnemonic - a short easy to read string. The operand is 
+written in decimal or hex.
+
+A translator (known as an assembler) converts the program in assembly language to
+machine code.
+
+
+EARLY COMPUTERS
+
+ENIAC (completed in 1945) was the first programmable, general purpose digital
+computer.
+
+Machine code values were entered by manually setting switches. This was difficult,
+time consuming, and error prone.
+
+By 1949, starting with the EDSAC computer, programmers were starting to use assembly.
+
+Instructions and data were often stored and entered using punched cards
+
+In the 1950's, high level programming languages like FORTRAN started to be used.
+Punch cards were replaced by keyboards, and magnetic tape was used for storage.
+
+
+HIGH LEVEL LANGUAGES
+All programming languages apart from machine code & assembly are high level
+languages.
+
+This includes Python, C, C++, C#, Java, JavaScript, Rust, etc.
+
+The HLL must be converted to machine code by a translator (compiler or interpreter.)
+
+TYPES
+    IMPERATIVE LANGUAGES
+        - languages where the program is a sequence of instructions that
+          are followed in order. Instructions can change the state of the program.
+        - e.g. python/C++
+
+    DECLARATIVE LANGUAGES
+        - languages what the program should do is stated, rather than how to do it.
+        - e.g. SQL.
+
+ADVANTAGES
+    - Program code is easier to understand, maintain, and debug
+    - It is fast to develop (one line of high level code can do the same job as lots of lines
+      of assembly)
+    - It facilitates collaborative working as developers can work on different
+      modules / subroutines
+    - Programs are machine independent and so can be ported to other hardware
+      platforms.
+    - Flow control structures such as loops and selection are available
+    - There is built-in support for data structures such as arrays and records.
+    - The language can be problem-oriented / tailored to a specific domain such as R
+      for statistics or MATLAB for engineering
+    - There is support for different paradigms such as OOP or Functional Programming
+    - There are features to support modularity and code reuse such as subroutines &
+      classes.
+    - There are libraries of pre-defined functions that can be used for common tasks
+      such as writing to files.
+
+
+LOW LEVEL LANGUAGES
+
+ADVANTAGES
+    It may use fewer instructions than machine code produced by a translator
+    converting high level code.
+
+    It may allow better access to hardware, registers, and low
+    level operating system routines.
+
+    It may allow better access to hardware, registers, and operating system routines.
+
+    IT will allow more control over the final machine code that is executed.
+
+    It will also be necessary to use a low level language if a translator for a high
+    level language is not available for the hardware that the program will run on.
+
+    May be used in embedded systems, device drivers, and interrupt handlers.

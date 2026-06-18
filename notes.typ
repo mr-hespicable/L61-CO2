@@ -116,3 +116,37 @@ e.g. `class Foo extends Bar` or in python, for `class Foo(Bar)`, Foo inherits Ba
 
 == Attributes and Methods
 Unless it says otherwise, attributes and methods of a class are private by default.
+
+= Complex Data
+
+== Stack
+A stack is a data structure which operates by "last in, first out". Used in ideas
+such as "stack frame" -> recursive functions use these.
+
+= Representing images
+
+== Recap
+How to convert from analog to digital?
+Answer: *Sampling*.
+
+In images, pixels are used. \
+In audio, sample frequency & bit depth. \
+In video, frames are used (not in spec).
+
+== Number of pixels
+Resolution is defined as $"width" times "height"$
+
+Typical "bitmap" $= 1000 times 1000$.
+
+*NOTE:*
+#align(center)[Resolution doesn't define the actual physical size of an image. If an
+image is made bigger (or smaller), the *size of the pixel* grows or shrinks to
+maintain the required resolution. This is why there is a deterioration in quality
+when a bitmap is resized.]
+
+== Bit depth
+Each pixel can represent a finite number of colors.
+- A pixel is attributed a number of bits $n =$ bit depth.
+- The number of combinations $(2**n)$ dictates the bit depth and therefore the number
+  of colors that can be represented.
+- A higher bit depth gives a greater range of color and a better quality of image.

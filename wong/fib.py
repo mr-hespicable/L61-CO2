@@ -1,5 +1,8 @@
 import time
+import sys
 from collections.abc import Callable
+
+sys.setrecursionlimit(2**31-1)
 
 def fibonacci_no_recursion(n: int) -> int:
     flist: list[int] = [0, 1]
@@ -10,13 +13,16 @@ def fibonacci_no_recursion(n: int) -> int:
     return flist[0]
 
 
-c = {0: 0, 1: 1}
+#c = {0: 0, 1: 1}
 def fib_recurse(n: int) -> int:
-    if n in c:
-        return c[n]
+    if n == 0 or n == 1:
+        return 1
+    #if n in c:
+    #    return c[n]
     
-    c[n] = fib_recurse(n-1) + fib_recurse(n-2)
-    return c[n]
+    #c[n] = fib_recurse(n-1) + fib_recurse(n-2)
+    return fib_recurse(n-1) + fib_recurse(n-2)
+
 
 
 def fact(n: int) -> int:
@@ -31,6 +37,7 @@ def time_func(f: Callable[[int], float], n: int) -> list[float]:
     result = f(n)
     return [time.time()-start_time, result]
 
-print(time_func(fibonacci_no_recursion, 4))
-print(time_func(fib_recurse, 4))
-print(time_func(fact, 1))
+a = 10
+print(time_func(fibonacci_no_recursion, a)[0] * 10**3)
+print(time_func(fib_recurse, a)[0] * 10**3)
+#print(time_func(fact, 1))

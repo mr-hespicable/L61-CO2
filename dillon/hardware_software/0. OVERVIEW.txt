@@ -1,0 +1,54 @@
+Hardware and software
+
+System software classification:
+    OPERATING SYSTEM:
+        - controls all the operations of the computer.
+        - the OS allows the hardware, application software and user to communicate with
+          each other, but abstracts the complexity of doing so from the user & software.
+
+    The operating system is normal held in secondary storage and loaded by a bootstrap
+    program stored in the ROM.
+
+
+    UTILITY PROGRAMS:
+        - they perform specific common tasks pertaining to running a computer.
+
+    This category includes programs that carry out "housekeeping" duties for the computer
+    such as:
+        - deleting unwanted files
+        - archiving data
+        - compressing data
+
+    Often installed alongside the operating system.
+    
+
+    LIBRARY PROGRAMS:
+        - code resources that can be called on by other programs to perform common
+          tasks.
+
+    Unlike utility programs, library programs are essential for application software
+    to run.
+
+    Windows operating systems include Dynamically Linked Library (DLL) files. These 
+    manage common dialog boxes, memory management, displaying text and graphics,
+    device drivers, etc. 
+
+    Python has a standard library but you can install additional libraries such as
+    matplotlib.
+
+
+    TRANSLATORS
+        - Required to turn the instructions contained in software into machine code
+          that can be executed by the processor.
+
+    There are three main types:
+        - Compilers, that convert all the source code to machine code and save it in
+          an executable file.
+
+        - Interpreters, which read the source code line by line and choose which
+          machine code instructions should be run.
+
+        - Assemblers convert assembly language to machine code.
+
+To distinguish utility programs from application software, note the following:
+You would not need to do the tasks they perform if you were not using a computer.

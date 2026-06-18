@@ -1,0 +1,149 @@
+  ______   _______   ________  _______    ______  ________  ______  __    __   ______        
+ /      \ |       \ |        \|       \  /      \|        \|      \|  \  |  \ /      \       
+|  $$$$$$\| $$$$$$$\| $$$$$$$$| $$$$$$$\|  $$$$$$\\$$$$$$$$ \$$$$$$| $$\ | $$|  $$$$$$\      
+| $$  | $$| $$__/ $$| $$__    | $$__| $$| $$__| $$  | $$     | $$  | $$$\| $$| $$ __\$$      
+| $$  | $$| $$    $$| $$  \   | $$    $$| $$    $$  | $$     | $$  | $$$$\ $$| $$|    \      
+| $$  | $$| $$$$$$$ | $$$$$   | $$$$$$$\| $$$$$$$$  | $$     | $$  | $$\$$ $$| $$ \$$$$      
+| $$__/ $$| $$      | $$_____ | $$  | $$| $$  | $$  | $$    _| $$_ | $$ \$$$$| $$__| $$      
+ \$$    $$| $$      | $$     \| $$  | $$| $$  | $$  | $$   |   $$ \| $$  \$$$ \$$    $$      
+  \$$$$$$  \$$       \$$$$$$$$ \$$   \$$ \$$   \$$   \$$    \$$$$$$ \$$   \$$  \$$$$$$       
+
+   ______  __      __   ______  ________  ________  __       __ 
+  /      \|  \    /  \ /      \|        \|        \|  \     /  \
+ |  $$$$$$\\$$\  /  $$|  $$$$$$\\$$$$$$$$| $$$$$$$$| $$\   /  $$
+ | $$___\$$ \$$\/  $$ | $$___\$$  | $$   | $$__    | $$$\ /  $$$
+  \$$    \   \$$  $$   \$$    \   | $$   | $$  \   | $$$$\  $$$$
+  _\$$$$$$\   \$$$$    _\$$$$$$\  | $$   | $$$$$   | $$\$$ $$ $$
+ |  \__| $$   | $$    |  \__| $$  | $$   | $$_____ | $$ \$$$| $$
+  \$$    $$   | $$     \$$    $$  | $$   | $$     \| $$  \$ | $$
+   \$$$$$$     \$$      \$$$$$$    \$$    \$$$$$$$$ \$$      \$$
+
+
+WHAT IS AN OPERATING SYSTEM?
+    - an OS forms a bridge between the physical hardware of a computer and the
+      user/application software.
+
+    - It hides the complexities of the hardware from the user.
+
+The operating system is normally stored in ROM, along with the bootloader.
+
+WHAT DOES THE OPERATING SYSTEM DO?
+    Processor management:
+        - The OS allocates processors/cores to process.
+        - Processes are scheduled (allocated processor time) by the OS.
+        - The OS will use interrupts (timer based?) to allocate the next process.
+        - Only one process can run at a time on each processor.
+
+    The appearance of concurrency is called multitasking.
+
+
+SCHEDULING ALGORITHMS
+    These are used by the OS to allocate processor time to processes. 
+    Common objectives are:
+        - maximize throughput + efficiency
+        - prevent resource starvation
+        - maximize efficiency of hardware resources (e.g. writing to SSD)
+
+
+    EXAMPLE: Round Robin
+        - Processes are held in a queue.
+        - Each process is allocated a certain amount of processor time
+        - If the process is not complete by the end of its time it moves to the back
+          of the queue.
+        
+        This can be improved by allocating priorities to processes.
+
+
+
+Linux Scheduler: EEVDF
+    Goal: equal CPU time between all tasks in system (assuming equal priority for all
+    tasks)
+
+    1. Every task is assigned a virtual run time that represents its allocated
+    'share' of the CPU
+    2. As tasks run, the difference between virtual run time & real run time is
+    calculated. (<real_run_time> - <virtual_run_time>) This difference is called 'lag'.
+
+    If the lag value is positive, the task is owed CPU time. If the lag value is
+    negative, the task has received more CPU time than is needed.
+
+    3. A task is 'eligible' if it's lag value is positive. (or zero). 
+
+
+INTERRUPT HANDLING
+    An interrupt is a signal sent to the processor which causes it to pause the
+    fetch-decode-execute cycle and jump to the interrupt handler provided by the OS.
+
+    The OS MUST be capable of handling interrupts appropriately.
+
+    Types of interrupts
+        - Timer interrupts are used to allow multitasking / switch between processes.
+        - Hardware interrupts are from keyboard/mouse
+        
+    Interrupts can also be called for runtime errors e.g. divide by zero error
+
+
+MEMORY MANAGEMENT
+    The OS allocates memory to processes.
+    The OS loads the code and data for each process into memory when it is started.
+    Each process has its own private address space which other processes cannot write to.
+
+    This 'memory' space consists of:
+        - a call stack which holds variables and other objects for the code currently being 
+        executed.
+        - a heap, which holds reference variables (e.g. objects), and where memory
+          can be dynamically used and
+
+    A multi-threaded application usually has a stack per thread, but only one heap.
+    This means that multiple threads are able to reference the same object on the
+    heap.
+
+    If a process runs out of memory, a 'StackOverflowError' occurs. The stack memory
+    is usually fixed when the process starts, and exceeding it causes a stack
+    overflow excepting. For the heap, more memory can be requested by the program to
+    the OS.
+
+
+VIRTUAL MEMORY
+    Memory addresses are virtual and are abstracted away from the actual, physical
+    location of the data.
+
+    The OS stores the mappings from virtual to physical memory locations in page
+    tables
+
+    If the computer system runs short of RAM, the OS can remove data pages from RAM
+    and save them to secondary storage. (Swap file)
+
+    A paging algorithm is used by the OS to determine which pages to save to virtual
+    memory.
+
+    The paging & scheduling algorithms work together to achieve efficient operation
+    of the device.
+
+
+MANAGEMENT OF I/O
+    e.g. mouse, keyboard, screen
+
+    Also includes secondary storage devices such as Hard Disk or SSD.
+
+    The OS allocates processes to I/O devices.
+    The OS has an I/O scheduler which will queue requests from processes to use I/O 
+    resources.
+
+    Works in conjunction with the processor scheduler to optimize performance
+
+    EXAMPLE:
+        - Process A is waiting for an I/O task to complete (saving a file to the HDD)
+        - The OS knows this, so moves it to the back of the queue. Another process
+          will be allocated processing time.
+        - Process B is a keyboard interrupt. This requires immediate processor
+          attention, and is handled in the interrupt handler.
+
+    A device driver is specialized software that allows the OS to communicate
+    with the I/O device.
+
+FILE MANAGEMENT
+    The OS uses directories to organize files into a logical, hierarchical structure.
+    It is responsible for allocating space one secondayr storage device to the files.
+    The OS stores the mapping between files and their physical locations on secondary
+    storage.

@@ -1,4 +1,4 @@
-import sys
+import sys, dis
 sys.set_int_max_str_digits(100000000)
 
 def fact(n):
@@ -7,4 +7,4 @@ def fact(n):
         a *= i
     return a
 
-print(len(str(fact(87655))))
+dis.dis(fact)

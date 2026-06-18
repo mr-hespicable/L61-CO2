@@ -1,0 +1,7 @@
+(2.1) it's invalid because postcode is too lengthy
+
+(2.2) it's valid; goes in van B
+
+(2.3) postcodes that start with single letter e.g. W14
+
+(2.4) \a\a?\d(\d|\a)?\d\a\a

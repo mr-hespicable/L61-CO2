@@ -1,0 +1,129 @@
+ASSEMBLER
+
+    |-------------------------------------------------------------------------------|
+    |                                                                               |
+    |                 ASSEMBLY LANGUAGE -> ASSEMBLER -> OBJECT CODE                 |
+    |                                                                               |
+    |-------------------------------------------------------------------------------|
+                 
+    
+    The assembler takes assembly language code and translates to machine code
+
+COMPILER 
+
+    |-------------------------------------------------------------------------------|
+    |                                                                               |
+    |                HIGH LEVEL LANGUAGE -> COMPILER -> OBJECT CODE                 |
+    |                                                                               |
+    |-------------------------------------------------------------------------------|
+
+    The compiler analyzes the program as a whole and produces a new file containing
+    object code. If the compiler encounters an error it will not translate any of the
+    program to run.
+
+    Once translated, compiled code does not need the compiler to be present to run.
+
+    However, compiled code will only run on one type of processor.
+    (processor/platform-dependent)
+
+    Some examples: C, C++
+
+INTERPRETER
+
+    |-------------------------------------------------------------------------------|
+    |                                                                               |
+    |               HIGH LEVEL LANGUAGE -> INTERPRETER -> OBJECT CODE               |
+    |                                                                               |
+    |-------------------------------------------------------------------------------|
+
+    The interpreter translates and executes the program line by line.
+    The interpreter executes each line immediately after translate.
+
+    It will call subroutines within its own code to carry out commands.
+
+    It continues until the first error is encountered or the program ends.
+
+    The interpreter translates the program each time it's executed.
+
+    It must always be present for a program that is interpreted to run.
+
+    Interpreter may also translate the same instruction multiple times (if in a
+    loop).
+
+
+COMPILING TO BYTE CODE
+
+    |-------------------------------------------------------------------------------|
+    |                                                                               |
+    |       HIGH LEVEL LANGUAGE -> COMPILER -> BYTE CODE -> VM -> OBJECT CODE       |
+    |                                                                               |
+    |-------------------------------------------------------------------------------|
+    
+
+    Compiler produces bytecode. Lower level than a High Level Language
+    The VM will execute the bytecode.
+    Some virtual  machines use just-in-time compilation where each line of bytecode is
+    translated to machine code before execution
+    The VM may also interpret bytecode by running its own subroutines
+
+    All the .NET languages (C#, VB.Net, etc.) are compiled to intermediate language file
+    which is just-in-time compiled to native code by the .NET runtime (VM)
+
+
+PYTHON
+    The Python source code is compiled to bytecode which is held either in memory, or
+    cached as .pyc files.
+
+    This bytecode is then interpreted by the Python interpreter.
+
+    WHY IS PYTHON REFERRED TO AS AN INTERPRETED LANGUAGE?
+        The bytecode files are not pre-compiled + distributed.
+        Instead, the source code is run directly.
+
+        Also, the python interpreter interprets the code rather than using
+        just-in-time compilation.
+
+
+
+
+Question: Compilation vs Interpretation
+    - I keep source code, they get executable.
+    - person B's machine must interpret code before running.
+
+compiled:
+        - ready to run
+        - often faster cause optimized 4 cpu
+        - source code is private (good thing?
+
+    however:
+        - compiled on windows, not cross platform
+        - inflexible. 
+        - extra step
+
+
+interpreted:
+        - cross platform (portable also)
+        - simple to test
+        - easy to debug.
+            
+    however:
+        - interpreter required on the other machine
+        - often slower
+        - source code is public
+
+
+A bit of both:
+    up front compiled to an intermediate language
+    intermediate language is given to everyone, who runs it as machine code. JIT
+    compilation.
+
+    Intermediate language = bytecode
+
+
+normal usage of any one lang tends to be one or the other.
+
+compiled: c, c+, obj-c
+interpreted: php, JS
+bytecode: java, c#, vb.net
+
+
