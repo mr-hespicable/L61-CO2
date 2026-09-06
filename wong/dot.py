@@ -1,6 +1,9 @@
 import math
-a = [2, 1]
-b = [-3, -1.5]
+a = [-1, 2, 4]
+b = [3, 5, 5]
+
+a = list(map(int, input().split()))
+b = list(map(int, input().split()))
 
 def dot(u, v):
     s = sum([math.prod(i) for i in zip(u, v)])
@@ -15,6 +18,6 @@ def cos_theta(u, v):
 def angle_between(u, v):
     return math.acos(cos_theta(u, v))
     
-print(dot(a, b))
-print(cos_theta(a, b))
+#print(dot(a, b))
 print(math.degrees(angle_between(a, b)))
+#print(angle_between(a, b))

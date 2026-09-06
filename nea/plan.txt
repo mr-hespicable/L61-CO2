@@ -1,0 +1,57 @@
+1. do an interview/survey to get requirements of product for end user.
+   if there are some existing systems already in the market, how do they compare with
+   each other and whats the point of making a new one if one exists already?
+    
+   -> come up with a requirement specification
+
+2. 
+
+
+connect four over the network
+- network usage => interesting algos
+  Plus client-server stuff
+
+- sql database for storing high scores => sql
+- make a bot that u can play against => algorithms
+
+Maybe build in rust because it's a nice language. Plus ease of compilation to
+web-assembly.
+
+
+resources:
+    ?
+
+=====================================================================================
+
+working title:
+    Connect Four Online
+
+description:
+    The project will provide a platform (hosted on web) to play battleship online
+    with other people. It will utilize client-server communications to allow users
+    to play against people, either through matchmaking or by entering a unique
+    identifier which allows users to play against another specific user (lobbies?)
+
+target user:
+    Intermediate to Advanced connect four players who want to improve their strategy
+    by playing against different algorithms (minimax, negamax), plus some
+    optimizations. How long can you last against the bot?
+
+programming language:
+    most likely rust (since same lang for help proj)
+
+    iced for frontend (cross platform incl. web)
+    tokio for networking (tcp client-server)
+    serde + serde_json for serializing + deserializing
+    sqlite for database 
+
+    must build in this order:
+        - online stuff
+        - then ai
+
+
+a reminder:
+    say
+    a web based platform for multiplayer playing connect 4
+    i think this one is already enough for nea project
+    then the AI is extra
